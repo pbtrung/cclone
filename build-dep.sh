@@ -13,9 +13,9 @@ make install
 cd ..
 rm -rf zlib*
 
-curl https://codeload.github.com/libressl-portable/portable/tar.gz/v2.5.3 -o libressl.tar.gz
+curl https://codeload.github.com/libressl-portable/portable/tar.gz/v2.5.4 -o libressl.tar.gz
 tar xf libressl.tar.gz
-cd portable-2.5.3
+cd portable-2.5.4
 ./autogen.sh
 ./configure --prefix="$VENDOR/libressl"
 make -j4

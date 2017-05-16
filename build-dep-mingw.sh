@@ -22,9 +22,9 @@ cd ..
 rm -rf zlib*
 rm *.patch
 
-curl https://codeload.github.com/libressl-portable/portable/tar.gz/v2.5.3 -o libressl.tar.gz
+curl https://codeload.github.com/libressl-portable/portable/tar.gz/v2.5.4 -o libressl.tar.gz
 tar xf libressl.tar.gz
-cd portable-2.5.3
+cd portable-2.5.4
 ./autogen.sh
 ./configure --prefix="$VENDOR/libressl"
 make -j4
@@ -34,9 +34,9 @@ rm -rf portable*
 rm libressl*
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$VENDOR/libressl/lib"
 
-curl -L https://github.com/nghttp2/nghttp2/releases/download/v1.22.0/nghttp2-1.22.0.tar.gz -o nghttp2.tar.gz
+curl -L https://github.com/nghttp2/nghttp2/releases/download/v1.23.0/nghttp2-1.23.0.tar.gz -o nghttp2.tar.gz
 tar xf nghttp2.tar.gz
-cd nghttp2-1.22.0
+cd nghttp2-1.23.0
 ./configure --prefix="$VENDOR/nghttp2" OPENSSL_LIBS="-L$VENDOR/libressl/lib -lssl -lcrypto" --enable-lib-only
 make
 make install

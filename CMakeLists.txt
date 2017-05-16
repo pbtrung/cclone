@@ -16,8 +16,18 @@ set(JANSSON_INC "${PROJECT_SOURCE_DIR}/build/vendor/jansson/include")
 
 set(SSL_LIB "${PROJECT_SOURCE_DIR}/build/vendor/libressl/lib/libssl.a")
 set(CRYPTO_LIB "${PROJECT_SOURCE_DIR}/build/vendor/libressl/lib/libcrypto.a")
-file(GLOB_RECURSE STATIC_LIBS "${PROJECT_SOURCE_DIR}/build/vendor/*.a")
-list(REMOVE_ITEM STATIC_LIBS ${SSL_LIB} ${CRYPTO_LIB})
+set(ZLIB_LIB "${PROJECT_SOURCE_DIR}/build/vendor/zlib/lib/libz.a")
+set(NGHTTP2_LIB "${PROJECT_SOURCE_DIR}/build/vendor/nghttp2/lib/libnghttp2.a")
+set(JANSSON_LIB "${PROJECT_SOURCE_DIR}/build/vendor/jansson/lib/libjansson.a")
+set(CURL_LIB "${PROJECT_SOURCE_DIR}/build/vendor/curl/lib/libcurl.a")
+set(STATIC_LIBS
+    ${CURL_LIB}
+    ${SSL_LIB}
+    ${CRYPTO_LIB}
+    ${ZLIB_LIB}
+    ${NGHTTP2_LIB}
+    ${JANSSON_LIB}
+)
 
 configure_file(
     "${SRC_PATH}/cclone-cfg.h.in"
@@ -45,7 +55,7 @@ if(BUILD_EXE)
     set(CCLONE_BIN "${PROJECT_NAME}")
     set(CCLONE_BIN_SRC "${SRC_PATH}/main.c")
     add_executable(${CCLONE_BIN} ${CCLONE_BIN_SRC} ${CCLONE_SRC})
-    target_link_libraries(${CCLONE_BIN} ${STATIC_LIBS} ${SSL_LIB} ${CRYPTO_LIB})
+    target_link_libraries(${CCLONE_BIN} ${STATIC_LIBS})
 endif()
 
 # Build test
@@ -55,7 +65,7 @@ if(BUILD_TEST)
     include_directories(${TEST_PATH})
     set(CCLONE_TEST_SRC "${TEST_PATH}/test-${PROJECT_NAME}.c")
     add_executable(${CCLONE_TEST} ${CCLONE_TEST_SRC} ${CCLONE_SRC})
-    target_link_libraries(${CCLONE_TEST} ${STATIC_LIBS} ${SSL_LIB} ${CRYPTO_LIB})   
+    target_link_libraries(${CCLONE_TEST} ${STATIC_LIBS})   
 endif()
 
 # Build flags
